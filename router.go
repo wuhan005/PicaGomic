@@ -20,6 +20,11 @@ func (s *Service) initRouter() {
 		r.GET("/categories", func(c *gin.Context){
 			c.JSON(s.Categories(c))
 		})
+
+		//GET /search
+		r.GET("/search", func(c *gin.Context){
+			c.JSON(s.SearchKeyword(c))
+		})
 	}
 
 	s.Router = r
