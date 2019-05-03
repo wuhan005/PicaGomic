@@ -27,6 +27,13 @@ func (s *Service) initRouter() {
 		})
 	}
 
+	{
+		//GET /comic/:id
+		r.GET("/comic/:id", func(c *gin.Context){
+			c.JSON(s.ComicInfo(c))
+		})
+	}
+
 	s.Router = r
 	err := s.Router.Run(":2334")
 
