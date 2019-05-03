@@ -46,3 +46,23 @@ func (s *Service) ComicEpisode(c *gin.Context) (int, interface{}){
 
 	return s.makeSuccessJSON(data.Get("data").Get("eps").Get("docs"))
 }
+
+func (s *Service) ComicDetail(c *gin.Context) (int, interface{}){
+	token := c.GetHeader("token")
+	bookID := c.Param("bookID")
+	episodeID := c.Param("episodeID")
+	page, err := c.GetQuery("page")
+
+	if !err{
+		page = "1"
+	}
+
+	data := Send(fmt.Sprintf("/comics/%s/order/%s/pages?page=%s", bookID, episodeID, page), "GET", token,"")
+
+	if data.Get("code").MustInt() != 200 {
+		return s.makeErrJSON(data.Get("code").MustInt(), data.Get("code").MustInt(), data.Get("message").MustString())
+	}
+	fmt.Println(data)
+
+	return s.makeSuccessJSON(data.Get("data"))
+}
