@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/parnurzeal/gorequest"
 )
 
 func (s *Service) Categories(c *gin.Context) (int, interface{}){
@@ -65,4 +66,12 @@ func (s *Service) ComicDetail(c *gin.Context) (int, interface{}){
 	fmt.Println(data)
 
 	return s.makeSuccessJSON(data.Get("data"))
+}
+
+func (s *Service) ComicMedia(c *gin.Context) gorequest.Response{
+	token := c.GetHeader("token")
+	url := c.Param("url")
+
+	picture := GetImage("/" + url, token)
+	return picture
 }

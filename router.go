@@ -42,6 +42,12 @@ func (s *Service) initRouter() {
 		r.GET("/content/:bookID/order/:episodeID", func(c *gin.Context){
 			c.JSON(s.ComicDetail(c))
 		})
+
+		//GET /image/:url
+		r.GET("/image/:url", func(c *gin.Context){
+			data := s.ComicMedia(c)
+			c.DataFromReader(200, data.ContentLength,"image/png", data.Body, map[string]string{})
+		})
 	}
 
 	s.Router = r

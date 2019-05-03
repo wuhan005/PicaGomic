@@ -87,7 +87,7 @@ func Send(url string, method string, authorization string, payload string) simpl
 	return *json
 }
 
-func GetImage(url string, authorization string) string{
+func GetImage(url string, authorization string) gorequest.Response{
 
 	url = "https://s3.picacomic.com/static" + url
 	secretKey := "~n}$S9$lGts=U)8zfL/R.PM9;4[3|@/CEsl~Kk!7?BYZ:BAa5zkkRBL7r|1/*Cr"
@@ -110,9 +110,7 @@ func GetImage(url string, authorization string) string{
 
 	request := gorequest.New()
 
-	var body string
-
-	_, body, _ = request.Get(url).
+	resp, _, _ := request.Get(url).
 		Set("api-key", apiKey).
 		Set("app-version", appVersion).
 		Set("app-channel", appChannel).
@@ -129,5 +127,5 @@ func GetImage(url string, authorization string) string{
 		Set("Content-Type", "application/json; charset=UTF-8").
 		End()
 
-	return body
+	return resp
 }
