@@ -34,7 +34,7 @@ func Send(url string, method string, authorization string, payload string) simpl
 	userAgent := "okhttp/3.8.1"
 	host := "picaapi.picacomic.com"
 	timestamp := strconv.FormatInt(time.Now().Unix(), 10)
-	nonce := "qwertyuiop"
+	nonce := strings.Replace(UUID.NewV4().String(), "-", "", -1)
 
 	signature := strings.Replace(url, "https://picaapi.picacomic.com/", "", -1)
 	signature = signature + timestamp + nonce + method + apiKey
@@ -101,7 +101,7 @@ func GetImage(url string, authorization string) gorequest.Response{
 	userAgent := "okhttp/3.8.1"
 	host := "s3.picacomic.com"
 	timestamp := strconv.FormatInt(time.Now().Unix(), 10)
-	nonce := "qwertyuiop"
+	nonce := strings.Replace(UUID.NewV4().String(), "-", "", -1)
 
 	signature := strings.Replace(url, "https://s3.picacomic.com/", "", -1)
 	signature = signature + timestamp + nonce + "GET" + apiKey
