@@ -1,12 +1,20 @@
 package main
 
 import (
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
 func (s *Service) initRouter() {
 
 	r := gin.Default()
+
+	// CORS Header
+	cf := cors.DefaultConfig()
+	cf.AllowAllOrigins = true
+	cf.AddAllowMethods("POST", "GET", "DELETE", "PUT", "OPTION", "PATCH")
+	cf.AddAllowHeaders("token, Content-type, User-Agent")
+	r.Use(cors.New(cf))
 
 	{
 		//GET /authorization
