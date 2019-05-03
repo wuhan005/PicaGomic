@@ -13,7 +13,7 @@ func (s *Service) SearchKeyword(c *gin.Context) (int, interface{}){
 
 	data := Send(fmt.Sprintf("/comics/search?page=%s&q=%s", page, url.QueryEscape(keyword)), "GET", token, "")
 
-	if(data.Get("code").MustInt() != 200){
+	if data.Get("code").MustInt() != 200 {
 		return s.makeErrJSON(data.Get("code").MustInt(), data.Get("code").MustInt(), data.Get("message").MustString())
 	}
 

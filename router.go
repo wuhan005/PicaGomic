@@ -32,6 +32,11 @@ func (s *Service) initRouter() {
 		r.GET("/comic/:id", func(c *gin.Context){
 			c.JSON(s.ComicInfo(c))
 		})
+
+		//GET /episode/:id
+		r.GET("/episode/:id", func(c *gin.Context){
+			c.JSON(s.ComicEpisode(c))
+		})
 	}
 
 	s.Router = r
